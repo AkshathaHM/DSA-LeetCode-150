@@ -3,18 +3,22 @@
  * @return {number}
  */
 var majorityElement = function(nums) {
-    let count = 0;
-    let candi = 0;
+    const n = nums.length;
+    const freq = new Map();
 
-    for(let num of nums){
-        if(count === 0) {
-            candi = num
-        }  
-            if(candi === num) {
-                count++;
-            } else {
-                count--;
-            }
+    for (const num of nums) {
+        if (freq.has(num)) {
+            freq.set(num, freq.get(num) + 1);
+        } else {
+            freq.set(num, 1);
         }
-      return candi;
+    }
+
+    for (const [key, value] of freq) {
+        if (value > Math.floor(n / 2)) {
+            return key;
+        }
+    }
+
+    return -1;
 };
